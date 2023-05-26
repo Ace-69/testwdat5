@@ -349,6 +349,8 @@ class wdat5(MeteologgerStorage):
             int(x) for x in os.path.split(filename)[1].split(".")[0].split("-")
         ]
         result = []
+        after_timestamp = dt.datetime.strptime(after_timestamp, '%d/%m/%y')
+        after_timestamp = self._get_datetime_with_correct_fold(after_timestamp)
         with open(filename, "rb") as f:
             header = f.read(212)
             if header[:6] != b"WDAT5.":
@@ -371,7 +373,7 @@ class wdat5(MeteologgerStorage):
                         year=year, month=month, day=day, tzinfo=self.tzinfo
                     ) + dt.timedelta(minutes=decoded_record["packedtime"])
                     timestamp = self._get_datetime_with_correct_fold(timestamp)
-                    after_timestamp = dt(after_timestamp)
+                    timestamp = timestamp.replace(tzinfo=None)
                     if timestamp <= after_timestamp:
                         continue
                     decoded_record["timestamp"] = timestamp
