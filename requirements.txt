@@ -1,6 +1,8 @@
-iso8601
+<!--INSTALL MANUALLY-->
+
 simpletail
 pandas
 numpy
-zoneinfo
 glob
+schedule
+zoneinfo or backports

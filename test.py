@@ -5,10 +5,12 @@ import re
 import struct
 from abc import ABC, abstractmethod
 from glob import glob
-from zoneinfo import ZoneInfo
+try:
+    from zoneinfo import ZoneInfo
+except ImportError:
+    from backports.zoneinfo import ZoneInfo
 
 
-import iso8601
 import numpy as np
 import pandas as pd
 from simpletail import ropen
